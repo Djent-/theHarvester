@@ -385,7 +385,15 @@ def start():
         print('\n[*] IPs found: ' + str(len(all_ip)))
         print('-------------------')
         # use netaddr as the list may contain ipv4 and ipv6 addresses
-        ip_list = sorted([netaddr.IPAddress(ip.strip()) for ip in set(all_ip)])
+        ip_info = []
+        for ip in set(all_ip):
+            try:
+                ip = netaddr.IPAddress(ip.strip())
+            except Exception as e:
+                print(f'[!] netaddr failed for {ip}: {e}')
+                ip = '127.0.0.1'
+            ip_list.append(ip)
+        ip_list = sorted(ip_list)
         print('\n'.join(map(str, ip_list)))
 
     if len(all_emails) == 0:
