@@ -221,10 +221,11 @@ def start():
                         from theHarvester.discovery import githubcode
                         github_search = githubcode.SearchGithubCode(word, limit)
                         store(github_search, engineitem, store_host=True, store_emails=True)
-                    except MissingKey as ex:
-                        print(ex)
-                    else:
-                        pass
+                    except Exception as e:
+                        if isinstance(e, MissingKey):
+                            print(e)
+                        else:
+                            print(f'An exception has occurred in Github code search: {e}')
 
                 elif engineitem == 'exalead':
                     print('\033[94m[*] Searching Exalead \033[0m')
