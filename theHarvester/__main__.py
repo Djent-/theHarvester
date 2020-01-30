@@ -391,7 +391,7 @@ def start():
                 ip = netaddr.IPAddress(ip.strip())
             except Exception as e:
                 print(f'[!] netaddr failed for {ip}: {e}')
-                ip = '127.0.0.1'
+                ip = netaddr.IPAddress('127.0.0.1')
             ip_list.append(ip)
         ip_list = sorted(ip_list)
         print('\n'.join(map(str, ip_list)))
